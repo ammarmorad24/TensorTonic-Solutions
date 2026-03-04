@@ -1,0 +1,14 @@
+import numpy as np
+
+def pad_sequences(seqs, pad_value=0, max_len=None):
+    N = len(seqs)
+    if max_len is None:
+        L = max((len(seq) for seq in seqs), default=0)
+    else:
+        L = max_len
+
+    ans = np.full((N, L), pad_value)
+    for i, seq in enumerate(seqs):
+        ans[i, :min(len(seq), L)] = seq[:L]
+
+    return ans
